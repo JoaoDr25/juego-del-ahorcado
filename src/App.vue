@@ -1,8 +1,13 @@
 <template>
+
   <div class="inicio-container">
+
+  <div class="pantalla" v-if="pantalla === 'inicio'">
+
     <h1 class="titulo">Juego del Ahorcado</h1>
 
     <div class="botones">
+
       <button @click="verEstadisticas">📊 Estadísticas</button>
       <button @click="comenzarJuego">▶️ Comenzar</button>
     </div>
@@ -29,16 +34,68 @@ body {
   height: 100vh;
 }
 
+
+      <button @click="mostrarModal('configuracion')">▶️ Comenzar</button>
+      <button @click="mostrarModal('estadisticas')">📊 Estadísticas</button>
+    </div>
+  </div>
+
+  <div class="pantalla" v-if="pantalla === 'estadisticas'">
+    <h1 class="titulo">📊 Estadísticas</h1>
+    <button @click="mostrarModal('inicio')">⬅️ Volver al inicio</button>
+  </div>
+
+  <div class="pantalla" v-if="pantalla === 'configuracion'">
+    <h1 class="titulo">⚙️ Configuración</h1>
+    <button @click="mostrarModal('juego')">🎮 Iniciar Juego</button>
+  </div>
+
+  <div class="pantalla" v-if="pantalla === 'juego'">
+    <h1 class="titulo">🎯 Juego en Progreso</h1>
+  </div>
+
+  <div class="pantalla" v-if="pantalla === 'victoria'">
+    <h1 class="titulo">🏆 ¡Ganaste!</h1>
+    <button @click="mostrarModal('inicio')">🔁 Volver al inicio</button>
+  </div>
+
+  <div class="pantalla" v-if="pantalla === 'derrota'">
+    <h1 class="titulo">💀 ¡Perdiste!</h1>
+    <button @click="mostrarModal('inicio')">🔁 Volver al inicio</button>
+  </div>
+</template>
+
+<script setup>
+import { ref } from 'vue';
+
+const pantalla = ref('inicio');
+
+function mostrarModal(modal) {
+  pantalla.value = modal;
+}
+</script>
+
+<style scoped>
+
 @font-face {
   font-family: 'Karma Future';
   src: url('../fonts/KarmaFuture.ttf') format('truetype');
 }
 
-h1 {
+/* Aplicar fondo al body (globalmente, aunque esté scoped) */
+:global(body) {
+  background-image: url("../src/assets/ChatGPT\ Image\ 9\ jul\ 2025\,\ 02_42_33\ p.m..png"); /* Reemplaza con el nombre corregido */
+  background-size: cover;
+  background-position: center;
+  margin: 0;
+  height: 100vh;
   font-family: 'Karma Future', sans-serif;
 }
 
+
 .inicio-container {
+
+.pantalla {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -75,12 +132,23 @@ button {
   box-shadow: inset 0 -4px 0 rgba(0, 0, 0, 0.2);
   cursor: pointer;
   transition: all 0.3s ease-in-out;
+
   border-radius: 0;
+
+  border-radius: 10px;
+  margin-top: 1rem;
+
 }
+
 
 button:hover {
   background-color: #fff;
   color: #000;
   box-shadow: inset 0 -4px 0 rgba(0, 0, 0, 0.4);
-}
+} }
 </style>
+
+
+
+
+
