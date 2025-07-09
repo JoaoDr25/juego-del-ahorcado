@@ -16,30 +16,44 @@ const verEstadisticas = () => {
 
 const comenzarJuego = () => {
   console.log('Comenzar juego')
+  // ejemplo: router.push('/juego')
 }
 </script>
 
-<style scoped>
+<style>
 body {
-  background-color: #f9f9f9;
+  background-image: url("https://sdmntprwestcentralus.oaiusercontent.com/files/00000000-3ac8-61fb-953c-a196eef629ee/raw?se=2025-07-09T19%3A31%3A15Z&sp=r&sv=2024-08-04&sr=b&scid=67d931c1-dd8d-5440-a245-ab53c889b7a3&skoid=f28c0102-4d9d-4950-baf0-4a8e5f6cf9d4&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-07-08T20%3A38%3A31Z&ske=2025-07-09T20%3A38%3A31Z&sks=b&skv=2024-08-04&sig=upet8MOrHtfAN2dvyMR87DN7%2BgbV%2BNzVvDgtiHKB82c%3D");
+  background-size: cover;
+  background-position: center;
+  margin: 0;
+  height: 100vh;
 }
+@font-face {
+  font-family: 'Karma Future';
+  src: url('../fonts/KarmaFuture.ttf') format('truetype');
+}
+
+h1 {
+  font-family: 'Karma Future', sans-serif;
+}
+
 
 .inicio-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 5rem;
+  padding: 8rem;
   box-sizing: border-box;
 }
 
 .titulo {
-  font-size: 3.5rem;
-  color: #42b883; 
+  font-size:4.9rem;
+  color: #070a0f; /* color característico de Vue */
   font-weight: 700;
   text-align: center;
-  margin-bottom: 4rem;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin-bottom: 4rem;  
+  
 }
 
 .botones {
@@ -56,7 +70,7 @@ button {
   font-size: 1.2rem;
   border: none;
   border-radius: 12px;
-  background-color: #35495e;
+  background-color: #3b5e35;
   color: white;
   cursor: pointer;
   transition: background 0.3s ease;
