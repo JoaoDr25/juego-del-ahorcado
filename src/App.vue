@@ -1,41 +1,39 @@
 <template>
-  <div v-if="pantalla === 'inicio'" class="pantalla">
+  <div class="pantalla" v-if="pantalla === 'inicio'">
     <h1 class="titulo">Juego del Ahorcado</h1>
     <div class="botones">
-      <button @click="mostrarModal('estadisticas')">📊 Estadísticas</button>
       <button @click="mostrarModal('configuracion')">▶️ Comenzar</button>
+      <button @click="mostrarModal('estadisticas')">📊 Estadísticas</button>
     </div>
   </div>
 
-  <div v-if="pantalla === 'estadisticas'" class="pantalla">
+  <div class="pantalla" v-if="pantalla === 'estadisticas'">
     <h1 class="titulo">📊 Estadísticas</h1>
-    <!-- Estadísticas del jugador -->
     <button @click="mostrarModal('inicio')">⬅️ Volver al inicio</button>
   </div>
 
-  <div v-if="pantalla === 'configuracion'" class="pantalla">
+  <div class="pantalla" v-if="pantalla === 'configuracion'">
     <h1 class="titulo">⚙️ Configuración</h1>
-    <!-- Opciones de configuración -->
     <button @click="mostrarModal('juego')">🎮 Iniciar Juego</button>
   </div>
 
-  <div v-if="pantalla === 'juego'" class="pantalla">
+  <div class="pantalla" v-if="pantalla === 'juego'">
     <h1 class="titulo">🎯 Juego en Progreso</h1>
   </div>
 
-  <div v-if="pantalla === 'victoria'" class="pantalla">
+  <div class="pantalla" v-if="pantalla === 'victoria'">
     <h1 class="titulo">🏆 ¡Ganaste!</h1>
     <button @click="mostrarModal('inicio')">🔁 Volver al inicio</button>
   </div>
 
-  <div v-if="pantalla === 'derrota'" class="pantalla">
+  <div class="pantalla" v-if="pantalla === 'derrota'">
     <h1 class="titulo">💀 ¡Perdiste!</h1>
     <button @click="mostrarModal('inicio')">🔁 Volver al inicio</button>
   </div>
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref } from 'vue';
 
 const pantalla = ref('inicio');
 
@@ -45,20 +43,18 @@ function mostrarModal(modal) {
 </script>
 
 <style scoped>
-body {
-  background-image: url("https://sdmntprwestcentralus.oaiusercontent.com/files/00000000-3ac8-61fb-953c-a196eef629ee/raw?se=2025-07-09T19%3A31%3A15Z&sp=r&sv=2024-08-04&sr=b&scid=67d931c1-dd8d-5440-a245-ab53c889b7a3&skoid=f28c0102-4d9d-4950-baf0-4a8e5f6cf9d4&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-07-08T20%3A38%3A31Z&ske=2025-07-09T20%3A38%3A31Z&sks=b&skv=2024-08-04&sig=upet8MOrHtfAN2dvyMR87DN7%2BgbV%2BNzVvDgtiHKB82c%3D");
-  background-size: cover;
-  background-position: center;
-  margin: 0;
-  height: 100vh;
-}
-
 @font-face {
   font-family: 'Karma Future';
   src: url('../fonts/KarmaFuture.ttf') format('truetype');
 }
 
-h1 {
+/* Aplicar fondo al body (globalmente, aunque esté scoped) */
+:global(body) {
+  background-image: url("../src/assets/ChatGPT\ Image\ 9\ jul\ 2025\,\ 02_42_33\ p.m..png"); /* Reemplaza con el nombre corregido */
+  background-size: cover;
+  background-position: center;
+  margin: 0;
+  height: 100vh;
   font-family: 'Karma Future', sans-serif;
 }
 
@@ -89,20 +85,26 @@ h1 {
 }
 
 button {
-  width: 100%;
+  font-family: 'Karma Future', sans-serif;
+  font-size: 1.6rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  background-color: #d9d9d9;
+  color: #000;
   padding: 1rem;
-  font-size: 1.2rem;
-  border: none;
-  border-radius: 12px;
-  background-color: #3b5e35;
-  color: white;
+  border: 3px solid #000;
+  box-shadow: inset 0 -4px 0 rgba(0, 0, 0, 0.2);
   cursor: pointer;
-  transition: background 0.3s ease;
+  transition: all 0.3s ease-in-out;
+  border-radius: 10px;
   margin-top: 1rem;
 }
 
 button:hover {
-  background-color: #42b883;
-  color: black;
+  background-color: #fff;
+  color: #000;
+  box-shadow: inset 0 -4px 0 rgba(0, 0, 0, 0.4);
 }
 </style>
+
+
