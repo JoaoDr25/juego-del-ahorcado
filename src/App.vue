@@ -1,40 +1,7 @@
 <template>
-
-  <div class="inicio-container">
-
   <div class="pantalla" v-if="pantalla === 'inicio'">
-
     <h1 class="titulo">Juego del Ahorcado</h1>
-
     <div class="botones">
-
-      <button @click="verEstadisticas">📊 Estadísticas</button>
-      <button @click="comenzarJuego">▶️ Comenzar</button>
-    </div>
-  </div>
-</template>
-
-<script setup lang="ts">
-const verEstadisticas = () => {
-  console.log('Ir a estadísticas')
-}
-
-const comenzarJuego = () => {
-  console.log('Comenzar juego')
-  // ejemplo: router.push('/juego')
-}
-</script>
-
-<style>
-body {
-  background-image: url("../src/assets/ChatGPT Image 9 jul 2025, 02_42_33 p.m..png");
-  background-size: cover;
-  background-position: center;
-  margin: 0;
-  height: 100vh;
-}
-
-
       <button @click="mostrarModal('configuracion')">▶️ Comenzar</button>
       <button @click="mostrarModal('estadisticas')">📊 Estadísticas</button>
     </div>
@@ -76,7 +43,6 @@ function mostrarModal(modal) {
 </script>
 
 <style scoped>
-
 @font-face {
   font-family: 'Karma Future';
   src: url('../fonts/KarmaFuture.ttf') format('truetype');
@@ -92,9 +58,6 @@ function mostrarModal(modal) {
   font-family: 'Karma Future', sans-serif;
 }
 
-
-.inicio-container {
-
 .pantalla {
   display: flex;
   flex-direction: column;
@@ -102,6 +65,7 @@ function mostrarModal(modal) {
   align-items: center;
   padding: 8rem;
   box-sizing: border-box;
+  height: 100vh;
 }
 
 .titulo {
@@ -128,24 +92,19 @@ button {
   background-color: #d9d9d9;
   color: #000;
   padding: 1rem;
-  border: 4px solid #000;
+  border: 3px solid #000;
   box-shadow: inset 0 -4px 0 rgba(0, 0, 0, 0.2);
   cursor: pointer;
   transition: all 0.3s ease-in-out;
-
-  border-radius: 0;
-
   border-radius: 10px;
   margin-top: 1rem;
-
 }
-
 
 button:hover {
   background-color: #fff;
   color: #000;
   box-shadow: inset 0 -4px 0 rgba(0, 0, 0, 0.4);
-} }
+}
 </style>
 
 
