@@ -1,22 +1,44 @@
 <template>
-  <div class="inicio-container">
+  <div v-if = "pantalla === 'inicio'" class="pantallaInicio">
     <h1 class="titulo">Juego del Ahorcado</h1>
 
     <div class="botones">
-      <button @click="verEstadisticas">📊 Estadísticas</button>
-      <button @click="comenzarJuego">▶️ Comenzar</button>
+      <button @click="mostrarModal('estadisticas')">📊 Estadísticas</button>
+      <button @click="mostrarModal('configuración')">▶️ Comenzar</button>
     </div>
+
+   <div v-if="pantalla === 'estadisticas'">
+   
+   </div>
+
+   <div v-if="pantalla === 'configuracion'">
+
+   </div>
+
+   <div v-if="pantalla === 'juego'">
+
+   </div>
+
+   <div v-if="pantalla === 'victoria'">
+
+   </div>
+
+   <div v-if="pantalla === 'derrota'">
+
+   </div>
+
   </div>
 </template>
 
-<script setup lang="ts">
-const verEstadisticas = () => {
-  console.log('Ir a estadísticas')
-}
+<script setup>
+  import { ref } from "vue";
 
-const comenzarJuego = () => {
-  console.log('Comenzar juego')
-}
+  const pantalla = ref ('inicio');
+
+  function mostrarModal(modal) {
+    pantalla.value.vue = modal
+  };
+
 </script>
 
 <style scoped>
