@@ -44,7 +44,7 @@ function mostrarModal(modal) {
 }
 </script>
 
-<style>
+<style scoped>
 body {
   background-image: url("https://sdmntprwestcentralus.oaiusercontent.com/files/00000000-3ac8-61fb-953c-a196eef629ee/raw?se=2025-07-09T19%3A31%3A15Z&sp=r&sv=2024-08-04&sr=b&scid=67d931c1-dd8d-5440-a245-ab53c889b7a3&skoid=f28c0102-4d9d-4950-baf0-4a8e5f6cf9d4&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-07-08T20%3A38%3A31Z&ske=2025-07-09T20%3A38%3A31Z&sks=b&skv=2024-08-04&sig=upet8MOrHtfAN2dvyMR87DN7%2BgbV%2BNzVvDgtiHKB82c%3D");
   background-size: cover;
