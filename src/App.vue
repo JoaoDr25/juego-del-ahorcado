@@ -1,53 +1,26 @@
 <template>
-  <div v-if="pantalla === 'inicio'" class="pantalla">
+  <div class="inicio-container">
     <h1 class="titulo">Juego del Ahorcado</h1>
+
     <div class="botones">
-      <button @click="verEstadisticas">comenzar</button>
-      <button @click="comenzarJuego">Estadísticas</button>
-
-      <button @click="mostrarModal('estadisticas')">📊 Estadísticas</button>
-      <button @click="mostrarModal('configuracion')">▶️ Comenzar</button>
+      <button @click="verEstadisticas">📊 Estadísticas</button>
+      <button @click="comenzarJuego">▶️ Comenzar</button>
     </div>
-  </div>
-
-  <div v-if="pantalla === 'estadisticas'" class="pantalla">
-    <h1 class="titulo">📊 Estadísticas</h1>
-    <!-- Estadísticas del jugador -->
-    <button @click="mostrarModal('inicio')">⬅️ Volver al inicio</button>
-  </div>
-
-  <div v-if="pantalla === 'configuracion'" class="pantalla">
-    <h1 class="titulo">⚙️ Configuración</h1>
-    <!-- Opciones de configuración -->
-    <button @click="mostrarModal('juego')">🎮 Iniciar Juego</button>
-  </div>
-
-  <div v-if="pantalla === 'juego'" class="pantalla">
-    <h1 class="titulo">🎯 Juego en Progreso</h1>
-  </div>
-
-  <div v-if="pantalla === 'victoria'" class="pantalla">
-    <h1 class="titulo">🏆 ¡Ganaste!</h1>
-    <button @click="mostrarModal('inicio')">🔁 Volver al inicio</button>
-  </div>
-
-  <div v-if="pantalla === 'derrota'" class="pantalla">
-    <h1 class="titulo">💀 ¡Perdiste!</h1>
-    <button @click="mostrarModal('inicio')">🔁 Volver al inicio</button>
   </div>
 </template>
 
-<script setup>
-import { ref } from "vue";
+<script setup lang="ts">
+const verEstadisticas = () => {
+  console.log('Ir a estadísticas')
+}
 
-const pantalla = ref("inicio");
-
-function mostrarModal(modal) {
-  pantalla.value = modal;
+const comenzarJuego = () => {
+  console.log('Comenzar juego')
+  // ejemplo: router.push('/juego')
 }
 </script>
 
-<style scoped>
+<style>
 body {
   background-image: url("../src/assets/ChatGPT Image 9 jul 2025, 02_42_33 p.m..png");
   background-size: cover;
@@ -65,17 +38,13 @@ h1 {
   font-family: 'Karma Future', sans-serif;
 }
 
-
 .inicio-container {
-
-.pantalla {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 8rem;
   box-sizing: border-box;
-  height: 100vh;
 }
 
 .titulo {
@@ -102,15 +71,11 @@ button {
   background-color: #d9d9d9;
   color: #000;
   padding: 1rem;
-  border: 3px solid #000;
+  border: 4px solid #000;
   box-shadow: inset 0 -4px 0 rgba(0, 0, 0, 0.2);
   cursor: pointer;
   transition: all 0.3s ease-in-out;
-  border-radius: 10px;
-
-  transition: background 0.3s ease;
-  margin-top: 1rem;
-
+  border-radius: 0;
 }
 
 button:hover {
@@ -118,4 +83,4 @@ button:hover {
   color: #000;
   box-shadow: inset 0 -4px 0 rgba(0, 0, 0, 0.4);
 }
-</style> 
+</style>
