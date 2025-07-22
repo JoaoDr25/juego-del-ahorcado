@@ -48,9 +48,9 @@ function mostrarModal(modal) {
   src: url('../fonts/KarmaFuture.ttf') format('truetype');
 }
 
-/* Aplicar fondo al body (globalmente, aunque esté scoped) */
+
 :global(body) {
-  background-image: url("../src/assets/ChatGPT\ Image\ 9\ jul\ 2025\,\ 02_42_33\ p.m..png"); /* Reemplaza con el nombre corregido */
+  background-image: url('/image.png'); 
   background-size: cover;
   background-position: center;
   margin: 0;
