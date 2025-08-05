@@ -1,5 +1,4 @@
 <template>
-  <!-- Pantalla de inicio -->
   <transition name="fade">
     <div class="pantalla" v-if="pantalla === 'inicio'">
       <h1 class="titulo">Juego del Ahorcado</h1>
@@ -10,57 +9,57 @@
     </div>
   </transition>
 
-  <!-- Pantalla de configuración -->
   <transition name="fade">
     <div class="pantalla" v-if="pantalla === 'configuracion'">
       <h1 class="titulo">⚙️ Configuración</h1>
       <form class="config-form" @submit.prevent="iniciarJuego">
-        <label>
-          Nombre del jugador:
+        <div class="form-group">
+          <label>👤 Nombre del jugador</label>
           <input v-model="nombreJugador" type="text" placeholder="Ej: Ana" />
-        </label>
+        </div>
 
-        <label>
-          Dificultad:
+        <div class="form-group">
+          <label>🎯 Dificultad</label>
           <select v-model="dificultad">
-            <option disabled value="">Seleccione una opción</option>
+            <option disabled value="">Seleccione dificultad</option>
             <option value="facil">Fácil</option>
-            <option value="medio">Medio</option>
+            <option value="normal">Normal</option>
             <option value="dificil">Difícil</option>
           </select>
-        </label>
+        </div>
 
-        <label>
-          Temática:
+        <div class="form-group">
+          <label>🌎 Temática</label>
           <select v-model="tematica">
-            <option disabled value="">Seleccione una opción</option>
+            <option disabled value="">Seleccione temática</option>
             <option value="frutas">Frutas</option>
             <option value="animales">Animales</option>
             <option value="ciudades">Ciudades</option>
             <option value="objetos">Objetos</option>
           </select>
-        </label>
+        </div>
 
-        <label>
-          Personaje:
+        <div class="form-group">
+          <label>🧍‍♂️ Personaje</label>
           <select v-model="personaje">
-            <option disabled value="">Seleccione un personaje</option>
-            <option value="pirata">Pirata</option>
-            <option value="robot">Robot</option>
-            <option value="ninja">Ninja</option>
+            <option disabled value="">Seleccione personaje</option>
+            <option value="pirata">Pirata </option>
+            <option value="robot">Robot </option>
+            <option value="ninja">Ninja </option>
           </select>
-        </label>
+        </div>
 
-        <button type="submit" :disabled="!formularioValido">🎮 Jugar</button>
-        <button type="button" @click="mostrarModal('inicio')">⬅️ Volver al inicio</button>
+        <div class="botones-formulario">
+          <button type="submit" :disabled="!formularioValido">🎮 Jugar</button>
+          <button type="button" @click="mostrarModal('inicio')">⬅️ Volver</button>
+        </div>
       </form>
     </div>
   </transition>
 
-  <!-- Pantalla de estadísticas -->
   <transition name="fade">
     <div class="pantalla" v-if="pantalla === 'estadisticas'">
-      <h1 class="titulo">📊 Estadísticas</h1>
+      <h1 class="titulo">Estadísticas</h1>
 
       <div v-if="estadisticas.length === 0">
         <p>No hay partidas registradas aún</p>
@@ -87,14 +86,13 @@
         </tbody>
       </table>
 
-      <div>
+      <div class="botones-estadisticas">
         <button @click="mostrarModal('inicio')">⬅️ Volver al inicio</button>
         <button @click="borrarEstadisticas">🧺 Borrar historial</button>
       </div>
     </div>
   </transition>
 
-  <!-- Pantalla de juego -->
   <transition name="fade">
     <div class="pantallaJuego" v-if="pantalla === 'juego'">
       <h2 class="tituloJuego">¡Adivina la Palabra!</h2>
@@ -111,19 +109,17 @@
       </div>
 
       <div class="teclado">
-        <button
-          v-for="letra in abecedario"
-          :key="letra"
-          :disabled="letrasUsadas.includes(letra)"
-          @click="intentarLetra(letra)"
-        >
+        <button v-for="letra in abecedario" :key="letra" :disabled="letrasUsadas.includes(letra)"
+          @click="intentarLetra(letra)">
           {{ letra }}
         </button>
       </div>
+      <button @click="mostrarModal('inicio')" class="btn-volver-juego">
+        🏠 Volver al inicio
+      </button>
     </div>
   </transition>
 
-  <!-- Pantalla de victoria -->
   <transition name="fade">
     <div class="pantalla-final" v-if="pantalla === 'victoria'">
       <h2 class="mensaje-victoria">🏆 ¡Ganaste!</h2>
@@ -133,7 +129,6 @@
     </div>
   </transition>
 
-  <!-- Pantalla de derrota -->
   <transition name="fade">
     <div class="pantalla-final" v-if="pantalla === 'derrota'">
       <h2 class="mensaje-derrota">💀 ¡Has perdido!</h2>
@@ -147,16 +142,13 @@
 <script setup>
 import { ref, computed, onMounted, onBeforeUnmount } from 'vue';
 
-// Pantalla actual
 const pantalla = ref('inicio');
 
-// Configuración
 const nombreJugador = ref('');
 const dificultad = ref('');
 const tematica = ref('');
 const personaje = ref('');
 
-// Palabras por temática y dificultad
 const palabrasPorTematica = {
   frutas: {
     facil: ['uva', 'kiwi', 'piña'],
@@ -180,7 +172,6 @@ const palabrasPorTematica = {
   }
 };
 
-// Juego
 const palabraSecreta = ref('');
 const letrasCorrectas = ref([]);
 const letrasIncorrectas = ref([]);
@@ -188,7 +179,6 @@ const letrasUsadas = ref([]);
 const intentosRestantes = ref(6);
 const abecedario = 'ABCDEFGHIJKLMNÑOPQRSTUVWXYZ'.split('');
 
-// Computados
 const errores = computed(() => letrasIncorrectas.value.length);
 
 const formularioValido = computed(() => {
@@ -246,7 +236,7 @@ function reiniciarJuego() {
   iniciarJuego();
 }
 
-// Estadísticas
+
 const estadisticas = ref([]);
 
 function cargarEstadisticas() {
@@ -283,9 +273,8 @@ function mostrarModal(modal) {
   if (modal === 'estadisticas') cargarEstadisticas();
 }
 
-// Manejo con teclado
+
 function manejarLetra(evento) {
-  // Asegúrate de que solo se pueda intentar una letra cuando la pantalla sea 'juego'
   if (pantalla.value !== 'juego') {
     return;
   }
@@ -300,12 +289,10 @@ onBeforeUnmount(() => window.removeEventListener('keydown', manejarLetra));
 </script>
 
 <style scoped>
-
 @font-face {
   font-family: 'Karma Future';
   src: url('../fonts/KarmaFuture.ttf') format('truetype');
 }
-
 
 :global(body) {
   background-image: url('image.png');
@@ -319,11 +306,11 @@ onBeforeUnmount(() => window.removeEventListener('keydown', manejarLetra));
 .pantalla {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  padding: 8rem;
+  padding: 2rem 1rem;
   box-sizing: border-box;
-  height: 100vh;
+  min-height: 100vh;
+  overflow-y: auto;
 }
 
 .titulo {
@@ -331,15 +318,17 @@ onBeforeUnmount(() => window.removeEventListener('keydown', manejarLetra));
   color: #070a0f;
   font-weight: 700;
   text-align: center;
-  margin-bottom: 4rem;
+  margin-bottom: 10px;
+  margin-top: 10px;
 }
 
 .botones {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1rem;
   width: 100%;
-  max-width: 300px;
+  max-width: 400px;
+  margin-top: 90px;
 }
 
 button {
@@ -355,7 +344,7 @@ button {
   cursor: pointer;
   transition: all 0.3s ease-in-out;
   border-radius: 10px;
-  margin-top: 1rem;
+  margin-top: 0;
 }
 
 button:hover {
@@ -364,28 +353,47 @@ button:hover {
   box-shadow: inset 0 -4px 0 rgba(0, 0, 0, 0.4);
 }
 
+.botones-estadisticas {
+  display: flex;
+  flex-direction: row;
+  gap: 1.5rem;
+  margin-top: 2rem;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.botones-estadisticas button {
+  min-width: 380px;
+}
+
 .tabla {
-  width: 100%;
-  max-width: 800px;
+  width: min(90%, 800px);
   border-collapse: collapse;
+  margin-top: 2rem;
   margin-bottom: 2rem;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
 }
 
 .tabla th,
 .tabla td {
   padding: 12px 16px;
   text-align: center;
-  border: 1px solid #ccc;
-  background-color: #fff;
+  border: 1px solid #ddd;
 }
 
 .tabla th {
-  background-color: #3b5e35;
+  background-color: #2c3e50;
   color: white;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .tabla tr:nth-child(even) {
-  background-color: #f0f0f0;
+  background-color: #f8f8f8;
 }
 
 .palabra {
@@ -521,6 +529,7 @@ button:hover {
   max-width: 400px;
   margin-left: auto;
   margin-right: auto;
+  margin-bottom: 20px;
 }
 
 .teclado button {
@@ -618,5 +627,54 @@ button:hover {
 .fade-leave-to {
   opacity: 0;
 }
-</style>
 
+.config-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 400px;
+  margin-top: 2rem;
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-group label {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.form-group input,
+.form-group select {
+  font-family: 'Karma Future', sans-serif;
+  font-size: 1rem;
+  padding: 0.75rem;
+  border: 2px solid #ccc;
+  border-radius: 6px;
+  background-color: #f9f9f9;
+  transition: all 0.2s ease-in-out;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: #3b5e35;
+  box-shadow: 0 0 5px rgba(59, 94, 53, 0.5);
+}
+
+.botones-formulario {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 0;
+}
+</style>
