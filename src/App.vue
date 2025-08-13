@@ -7,12 +7,12 @@
         <button @click="mostrarModal('estadisticas')">📊 Estadísticas</button>
       </div>
 
-      <!-- Burbuja de música flotante -->
+      
       <div class="music-bubble" @click="toggleMusicPlayer">
         🎶
       </div>
 
-      <!-- Reproductor de música -->
+      
       <div v-if="mostrarReproductor" class="music-player">
         <div class="player-header">
           <img :src="cancionActual?.image" alt="Imagen de la canción" class="player-image" />
@@ -128,7 +128,7 @@
 
     <div class="juego-layout">
 
-      <!-- Columna izquierda: ahorcado -->
+    
       <div class="columna-ahorcado">
         <div class="ahorcado-container">
           <img v-for="(img, index) in imagenesAhorcado" :key="index" :src="img" :alt="`Parte ${index}`"
@@ -136,7 +136,7 @@
         </div>
       </div>
 
-      <!-- Columna derecha: juego -->
+    
       <div class="columna-juego">
         <h2 class="tituloJuego">¡Adivina la Palabra!</h2>
         <p class="palabraSecreta">
@@ -189,7 +189,7 @@
 
 import { ref, computed, onMounted, onBeforeUnmount } from 'vue';
 
-// Estado para controlar la reproducción de la música
+
 const mostrarReproductor = ref(false);
 const canciones = [
   { name: 'Canción 1', uri: 'spotify:track:4uLU6hMCjMI75M1LxZT6zI', image: 'https://via.placeholder.com/150', artist: 'Artista 1' },
@@ -205,10 +205,10 @@ let audio = ref(null);
 let progressBarWidth = ref(0);
 let currentTime = ref('0:00');
 
-// Canción actual
+
 const cancionActual = computed(() => canciones[currentSongIndex.value]);
 
-// Función para reproducir la canción
+
 const togglePlayPause = () => {
   if (isPlaying.value) {
     pauseSong();
@@ -217,60 +217,59 @@ const togglePlayPause = () => {
   }
 };
 
-// Reproducir canción
+
 const playSong = () => {
-  // Aquí deberías integrar el Web Playback SDK de Spotify
-  // Simulamos la reproducción con un archivo de audio
+
   audio.value = new Audio(`https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3`);
   audio.value.play();
   isPlaying.value = true;
 
-  // Actualizar el progreso de la canción
+
   audio.value.ontimeupdate = () => {
     currentTime.value = formatTime(audio.value.currentTime);
     progressBarWidth.value = (audio.value.currentTime / audio.value.duration) * 100;
   };
 };
 
-// Pausar canción
+
 const pauseSong = () => {
   audio.value.pause();
   isPlaying.value = false;
 };
 
-// Cambiar a la canción siguiente
+
 const nextSong = () => {
   if (currentSongIndex.value < canciones.length - 1) {
     currentSongIndex.value++;
   } else {
-    currentSongIndex.value = 0;  // Si es la última canción, vuelve a la primera
+    currentSongIndex.value = 0; 
   }
-  playSong();  // Reproducir la siguiente canción
+  playSong(); 
 };
 
-// Cambiar a la canción anterior
+
 const prevSong = () => {
   if (currentSongIndex.value > 0) {
     currentSongIndex.value--;
   } else {
-    currentSongIndex.value = canciones.length - 1;  // Si es la primera canción, ir a la última
+    currentSongIndex.value = canciones.length - 1;  
   }
-  playSong();  // Reproducir la canción anterior
+  playSong();  
 };
 
-// Formatear el tiempo en minutos:segundos
+
 const formatTime = (timeInSeconds) => {
   const minutes = Math.floor(timeInSeconds / 60);
   const seconds = Math.floor(timeInSeconds % 60);
   return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
 };
 
-// Mostrar/ocultar el reproductor
+
 const toggleMusicPlayer = () => {
   mostrarReproductor.value = !mostrarReproductor.value;
 };
 
-// Verifica si el reproductor está en funcionamiento
+
 onMounted(() => {
   if (isPlaying.value) {
     playSong();
@@ -437,16 +436,16 @@ onBeforeUnmount(() => window.removeEventListener('keydown', manejarLetra));
 <style scoped>
 @font-face {
   font-family: 'Karma Future';
-  src: url('../fonts/KarmaFuture.ttf') format('truetype');
+  src: url('./fonts/KarmaFuture.ttf') format('truetype');
 }
 
 @font-face {
   font-family: 'Blocks';
-  src: url('../fonts/From\ Cartoon\ Blocks.ttf');
+  src: url('./fonts/From\ Cartoon\ Blocks.ttf');
 }
 
 :global(body) {
-  background-image: url('image.png');
+  background-image: url('./public/image.png');
   background-size: cover;
   background-position: center;
   margin: 0;
@@ -490,7 +489,7 @@ onBeforeUnmount(() => window.removeEventListener('keydown', manejarLetra));
   font-family: 'Karma Future', sans-serif;
 }
 
-/* Burbuja flotante de música */
+
 .music-bubble {
   position: fixed;
   bottom: 20px;
@@ -508,7 +507,7 @@ onBeforeUnmount(() => window.removeEventListener('keydown', manejarLetra));
   transform: scale(1.2);
 }
 
-/* Reproductor de música */
+
 .music-player {
   position: fixed;
   bottom: 100px;
@@ -589,7 +588,7 @@ onBeforeUnmount(() => window.removeEventListener('keydown', manejarLetra));
   font-size: 1.5rem;
 }
 
-/* aqui termina */
+
 .botones {
   display: flex;
   flex-direction: column;
@@ -907,7 +906,7 @@ button:hover {
   opacity: 0;
 }
 
-/* 🎨 Estilos pantalla de configuración */
+
 .card-config {
   background-color: rgb(210 205 205 / 90%);
   padding: 2rem;
