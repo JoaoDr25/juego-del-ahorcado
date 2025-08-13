@@ -1,0 +1,149 @@
+    PROYECTO JUEGO DEL AHORCADO CON VUE.JS
+
+🧩 REQUERIMIENTOS FUNCIONALES
+
+1.	Pantalla de Inicio.
+-	Mostrar el título del juego.
+-	Incluir dos botones principales:
+o	Ver Clasificación.
+o	Iniciar Juego.
+
+2.	Clasificación (modal).
+Al hacer clic en "Ver Clasificación":
+-	Mostrar un modal con una tabla de clasificación, incluyendo:
+-	Número de partida.
+-	Nombre del jugador.
+-	Aciertos.
+-	Errores.
+-	Puntaje total (aciertos - errores).
+-	Fecha y hora de la partida.
+-	La tabla estará ordenada de mayor a menor puntaje.
+-	Incluir botón "Volver al inicio".
+
+3.	Modal de Configuración del Juego.
+Al hacer clic en "Iniciar Juego", mostrar un modal con los siguientes campos obligatorios:
+-	Nombre del jugador (mínimo 3 letras).
+-	Dificultad (Fácil, Normal, Difícil).
+-	Temática de palabras (Frutas, Animales, Ciudades, Objetos).
+-	Selección de personaje (imagen a elegir).
+-	Incluir botones:
+o	Jugar (solo se habilita si todo está diligenciado).
+o	Regresar al inicio.
+
+4.	Reglas por dificultad.
+-	Fácil: Palabras de hasta 4 letras, duración 1 minuto.
+-	Normal: Palabras de 5 a 6 letras, duración 3 minutos.
+-	Difícil: Palabras de 7 a 10 letras, duración 5 minutos.
+
+5.	Pantalla de Juego (modal).
+-	Mostrar una palabra aleatoria según temática y dificultad.
+-	Mostrar espacios/recuadros por letra (ocultos).
+-	Abecedario en español (incluyendo "Ñ"), con botones por letra.
+-	Letras ya usadas deben bloquearse visualmente.
+-	Mostrar:
+o	Imagen del personaje, recortada por partes según errores.
+o	Contador de aciertos y errores.
+o	Temporizador visible.
+-	Al ganar:
+o	Mostrar modal de victoria.
+o	Guardar puntaje en LocalStorage.
+o	Mostrar opciones: Nuevo juego / Ver clasificación.
+-	Al perder (por tiempo o errores):
+o	Mostrar modal de derrota.
+o	Guardar puntaje en LocalStorage.
+o	Mostrar opciones: Nuevo juego / Ver clasificación.
+
+6.	Persistencia y lógica.
+-	Guardar todas las partidas (con nombre, fecha, puntaje, aciertos, errores) en LocalStorage.
+-	Evitar repeticiones de palabras recientes (opcional con lógica de historial).
+-	Al reiniciar el juego:
+o	Redireccionar a la pantalla de configuración inicial.
+
+7.	Extras funcionales sugeridos.
+-	Efectos de sonido al acertar, fallar, ganar o perder.
+-	Opción para borrar clasificación completa (con confirmación).
+-	Opción para pausar el juego (opcional).
+-	Añadir animación o transición entre pantallas/modales.
+
+
+⚙️ REQUERIMIENTOS NO FUNCIONALES
+
+1.	Almacenamiento.
+-	Todos los datos deben persistirse en LocalStorage.
+-	La estructura debe ser reutilizable para cada nueva partida.
+
+2.	Desempeño.
+-	Carga rápida y fluida.
+-	El juego no debe bloquear la UI mientras corre el temporizador.
+
+3.	Estructura del código.
+-	Usar una sola vista App.vue, pero estructurada con claridad:
+-	Secciones bien delimitadas (inicio, configuración, juego, clasificación).
+-	Manejo eficiente del estado con data, computed, methods.
+
+4.	Validaciones.
+-	Validar que todos los campos del juego estén diligenciados antes de comenzar.
+-	No permitir duplicar partidas si no ha terminado una anterior.
+-	Manejo de errores de usuario (como clics rápidos múltiples).
+
+
+🎨 REQUERIMIENTOS DE INTERFAZ GRÁFICA
+
+1.	Diseño visual.
+-	Temática visual adecuada al concepto del "Ahorcado" (colores, tipografía, fondo).
+-	Imágenes de personajes atractivas.
+-	Diferenciar visualmente aciertos, errores y letras usadas.
+
+2.	Diseño responsive.
+-	Funcionar correctamente en:
+o	Escritorio.
+o	Tableta.
+o	Móviles (vertical y horizontal).
+-	Redimensionar modales y botones según tamaño de pantalla.
+-	Uso de @media queries o flex/grid para organización.
+
+3.	Accesibilidad.
+-	Botones con tamaños adecuados.
+-	Contraste apropiado entre texto y fondo.
+-	Inclusión de etiquetas aria-* si se desea mayor accesibilidad.
+-	Posibilidad de navegación por teclado.
+
+4.	Diseño en App.vue.
+-	Maquetado en <template>, diseño en <style>, lógica en <script>.
+-	Mantener todo en el archivo App.vue, pero con claridad visual y comentada.
+
+
+🧱 Resumen general de estructura sugerida en App.vue
+
+<template>
+  <!-- Sección de pantalla de inicio -->
+
+  <!-- Modal de clasificación -->
+
+  <!-- Modal de configuración del juego -->
+
+  <!-- Modal de juego -->
+
+  <!-- Modal de ganar/perder -->
+
+</template>
+
+<script>
+export default {
+  data() { return { /* Estado general */ } },
+  computed: { /* Computados como puntaje final o letras acertadas */ },
+  methods: {
+    iniciarJuego() {},
+    seleccionarLetra() {},
+    actualizarPersonaje() {},
+    finalizarJuego() {},
+    guardarPartida() {},
+    cargarClasificacion() {},
+    resetearJuego() {}
+  }
+}
+</script>
+
+<style>
+/* Estilos del juego por secciones y responsivos */
+</style>
