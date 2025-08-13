@@ -6,8 +6,8 @@
         <button @click="mostrarModal('configuracion')">▶️ Comenzar</button>
         <button @click="mostrarModal('estadisticas')">📊 Estadísticas</button>
       </div>
-    
-     <!-- Burbuja de música flotante -->
+
+      <!-- Burbuja de música flotante -->
       <div class="music-bubble" @click="toggleMusicPlayer">
         🎶
       </div>
@@ -40,52 +40,51 @@
 
   <transition name="fade">
     <div class="pantalla" v-if="pantalla === 'configuracion'">
-  <div class="card-config">
-    <h1 class="titulo2">⚙️Configuración⚙️</h1>
+      <div class="card-config">
+        <h1 class="titulo2">⚙️Configuración⚙️</h1>
 
-    <form class="config-form" @submit.prevent="iniciarJuego">
-      <div class="form-group">
-        <label>👤 Nombre del jugador</label>
-        <input v-model="nombreJugador" type="text" placeholder="Ej: Ana" />
-      </div>
+        <form class="config-form" @submit.prevent="iniciarJuego">
+          <div class="form-group">
+            <label>👤 Nombre del jugador</label>
+            <input v-model="nombreJugador" type="text" placeholder="Ej: Ana" />
+          </div>
 
-      <div class="form-group">
-        <label>🎯 Dificultad</label>
-        <select v-model="dificultad">
-          <option disabled value="">Seleccione dificultad</option>
-          <option value="facil">Fácil</option>
-          <option value="normal">Normal</option>
-          <option value="dificil">Difícil</option>
-        </select>
-      </div>
+          <div class="form-group">
+            <label>🎯 Dificultad</label>
+            <select v-model="dificultad">
+              <option disabled value="">Seleccione dificultad</option>
+              <option value="facil">Fácil</option>
+              <option value="normal">Normal</option>
+              <option value="dificil">Difícil</option>
+            </select>
+          </div>
 
-      <div class="form-group">
-        <label>🌎 Temática</label>
-        <select v-model="tematica">
-          <option disabled value="">Seleccione temática</option>
-          <option value="frutas">Frutas</option>
-          <option value="animales">Animales</option>
-          <option value="ciudades">Ciudades</option>
-          <option value="objetos">Objetos</option>
-        </select>
-      </div>
+          <div class="form-group">
+            <label>🌎 Temática</label>
+            <select v-model="tematica">
+              <option disabled value="">Seleccione temática</option>
+              <option value="frutas">Frutas</option>
+              <option value="animales">Animales</option>
+              <option value="ciudades">Ciudades</option>
+              <option value="objetos">Objetos</option>
+            </select>
+          </div>
 
-      <div class="form-group">
-        <label>🧍‍♂️ Personaje</label>
-        <select v-model="personaje">
-          <option disabled value="">Seleccione personaje</option>
-          <option value="hombre">Hombre🏴‍☠️</option>
-          <option value="mujer">Mujer🤖</option>
-        </select>
-      </div>
+          <div class="form-group">
+            <label>🧍‍♂️ Personaje</label>
+            <select v-model="personaje">
+              <option disabled value="">Seleccione personaje</option>
+              <option value="mujer">Robot 🤖</option>
+            </select>
+          </div>
 
-      <div class="botones-formulario">
-        <button type="submit" :disabled="!formularioValido">🎮 Jugar</button>
-        <button type="button" @click="mostrarModal('inicio')">⬅ Volver</button>
+          <div class="botones-formulario">
+            <button type="submit" :disabled="!formularioValido">🎮 Jugar</button>
+            <button type="button" @click="mostrarModal('inicio')">⬅ Volver</button>
+          </div>
+        </form>
       </div>
-    </form>
-  </div>
-</div>
+    </div>
 
   </transition>
 
@@ -125,32 +124,47 @@
     </div>
   </transition>
 
-  <transition name="fade">
-    <div class="pantallaJuego" v-if="pantalla === 'juego'">
-      <h2 class="tituloJuego">¡Adivina la Palabra!</h2>
+  <div class="pantallaJuego" v-if="pantalla === 'juego'">
 
-      <p class="palabraSecreta">
-        <span v-for="(letra, index) in palabraSecreta" :key="index">
-          {{ letrasCorrectas.includes(letra) ? letra : '_' }}
-        </span>
-      </p>
+    <div class="juego-layout">
 
-      <div class="infoJuego">
-        <p>❌ Letras Incorrectas: <strong>{{ letrasIncorrectas.join(', ') }}</strong></p>
-        <p>💖 Vidas Restantes: <strong>{{ intentosRestantes }}</strong></p>
+      <!-- Columna izquierda: ahorcado -->
+      <div class="columna-ahorcado">
+        <div class="ahorcado-container">
+          <img v-for="(img, index) in imagenesAhorcado" :key="index" :src="img" :alt="`Parte ${index}`"
+            class="ahorcado-imagen" :class="[`parte-${index}`, { visible: index <= errores }]" />
+        </div>
       </div>
 
-      <div class="teclado">
-        <button v-for="letra in abecedario" :key="letra" :disabled="letrasUsadas.includes(letra)"
-          @click="intentarLetra(letra)">
-          {{ letra }}
+      <!-- Columna derecha: juego -->
+      <div class="columna-juego">
+        <h2 class="tituloJuego">¡Adivina la Palabra!</h2>
+        <p class="palabraSecreta">
+          <span v-for="(letra, index) in palabraSecreta" :key="index">
+            {{ letrasCorrectas.includes(letra) ? letra : '_' }}
+          </span>
+        </p>
+
+        <div class="infoJuego">
+          <p>❌ Letras Incorrectas: <strong>{{ letrasIncorrectas.join(', ') }}</strong></p>
+          <p>💖 Vidas Restantes: <strong>{{ intentosRestantes }}</strong></p>
+        </div>
+
+        <div class="teclado">
+          <button v-for="letra in abecedario" :key="letra" :disabled="letrasUsadas.includes(letra)"
+            @click="intentarLetra(letra)">
+            {{ letra }}
+          </button>
+        </div>
+
+        <button @click="mostrarModal('inicio')" class="btn-volver-juego">
+          🏠 Volver al inicio
         </button>
       </div>
-      <button @click="mostrarModal('inicio')" class="btn-volver-juego">
-        🏠 Volver al inicio
-      </button>
+
     </div>
-  </transition>
+  </div>
+
 
   <transition name="fade">
     <div class="pantalla-final" v-if="pantalla === 'victoria'">
@@ -174,7 +188,7 @@
 <script setup>
 
 import { ref, computed, onMounted, onBeforeUnmount } from 'vue';
-// Estado
+
 // Estado para controlar la reproducción de la música
 const mostrarReproductor = ref(false);
 const canciones = [
@@ -187,7 +201,7 @@ const canciones = [
 
 let currentSongIndex = ref(0);
 let isPlaying = ref(false);
-let audio = ref(null);  // Aquí iría el reproductor de Spotify o un audio normal
+let audio = ref(null);
 let progressBarWidth = ref(0);
 let currentTime = ref('0:00');
 
@@ -263,6 +277,15 @@ onMounted(() => {
   }
 });
 
+import ahorcado0 from './assets/ahorcado0.png';
+import ahorcado1 from './assets/ahorcado1.png';
+import ahorcado2 from './assets/ahorcado2.png';
+import ahorcado3 from './assets/ahorcado3.png';
+import ahorcado4 from './assets/ahorcado4.png';
+import ahorcado5 from './assets/ahorcado5.png';
+import ahorcado6 from './assets/ahorcado6.png';
+
+const imagenesAhorcado = [ahorcado0, ahorcado1, ahorcado2, ahorcado3, ahorcado4, ahorcado5, ahorcado6];
 
 
 const pantalla = ref('inicio');
@@ -274,23 +297,23 @@ const personaje = ref('');
 
 const palabrasPorTematica = {
   frutas: {
-    facil: ['uva', 'pera','melon','cereza'],
-    medio: ['sandia', 'mango', 'guayaba','platano'],
-    dificil: ['maracuya', 'guanabana', 'granadilla','manzana','mandarina']
+    facil: ['uva', 'pera', 'melon', 'cereza'],
+    normal: ['sandia', 'mango', 'guayaba', 'platano'],
+    dificil: ['maracuya', 'guanabana', 'granadilla', 'manzana', 'mandarina']
   },
   animales: {
-    facil: ['gato', 'oso', 'pez','perro','leon'],
-    medio: ['elefante', 'leopardo', 'pantera','tortuga','iguana'],
-    dificil: ['Ornitorrinco', 'Hipopotamo','Cocodrilo','Mariposa']
+    facil: ['gato', 'oso', 'pez', 'perro', 'leon'],
+    normal: ['elefante', 'leopardo', 'pantera', 'tortuga', 'iguana'],
+    dificil: ['Ornitorrinco', 'Hipopotamo', 'Cocodrilo', 'Mariposa']
   },
   ciudades: {
     facil: ['lima', 'paris', 'roma'],
-    medio: ['bogota', 'quito', 'madrid'],
-    dificil: ['copenhague', 'estambul','londres', 'edimburgo']
+    normal: ['bogota', 'quito', 'madrid'],
+    dificil: ['copenhague', 'estambul', 'londres', 'edimburgo']
   },
-  objetos: {      
+  objetos: {
     facil: ['taza', 'mesa', 'cama'],
-    medio: ['espejo', 'teclado', 'lampara'],
+    normal: ['espejo', 'teclado', 'lampara'],
     dificil: ['refrigerador', 'microscopio', 'televisor']
   }
 };
@@ -299,7 +322,7 @@ const palabraSecreta = ref('');
 const letrasCorrectas = ref([]);
 const letrasIncorrectas = ref([]);
 const letrasUsadas = ref([]);
-const intentosRestantes = ref(6);
+const intentosRestantes = ref(7);
 const abecedario = 'ABCDEFGHIJKLMNÑOPQRSTUVWXYZ'.split('');
 
 const errores = computed(() => letrasIncorrectas.value.length);
@@ -326,7 +349,7 @@ function iniciarJuego() {
   letrasCorrectas.value = [];
   letrasIncorrectas.value = [];
   letrasUsadas.value = [];
-  intentosRestantes.value = 6;
+  intentosRestantes.value = 7;
 
   pantalla.value = 'juego';
 }
@@ -416,7 +439,8 @@ onBeforeUnmount(() => window.removeEventListener('keydown', manejarLetra));
   font-family: 'Karma Future';
   src: url('../fonts/KarmaFuture.ttf') format('truetype');
 }
-@font-face{
+
+@font-face {
   font-family: 'Blocks';
   src: url('../fonts/From\ Cartoon\ Blocks.ttf');
 }
@@ -428,7 +452,7 @@ onBeforeUnmount(() => window.removeEventListener('keydown', manejarLetra));
   margin: 0;
   height: 100vh;
   font-family: 'Blocks', sans-serif;
-  
+
 }
 
 .pantalla {
@@ -440,7 +464,8 @@ onBeforeUnmount(() => window.removeEventListener('keydown', manejarLetra));
   box-sizing: border-box;
   height: 100vh;
 }
-.pantalla p{
+
+.pantalla p {
   font-size: 3rem;
   color: #33348e;
   font-style: italic;
@@ -455,14 +480,16 @@ onBeforeUnmount(() => window.removeEventListener('keydown', manejarLetra));
   margin-bottom: 10px;
   margin-top: 10px;
 }
-.titulo1{
+
+.titulo1 {
   font-size: 7rem;
   color: #070a0f;
   font-weight: 700;
   text-align: center;
   margin-bottom: 4rem;
-   font-family: 'Karma Future', sans-serif;
+  font-family: 'Karma Future', sans-serif;
 }
+
 /* Burbuja flotante de música */
 .music-bubble {
   position: fixed;
@@ -472,7 +499,7 @@ onBeforeUnmount(() => window.removeEventListener('keydown', manejarLetra));
   border-radius: 100px;
   font-size: 55px;
   cursor: pointer;
-  background-color:transparent;
+  background-color: transparent;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s ease-in-out;
 }
@@ -557,9 +584,11 @@ onBeforeUnmount(() => window.removeEventListener('keydown', manejarLetra));
   background-color: #2334a5;
 }
 
-.prev-button, .next-button {
+.prev-button,
+.next-button {
   font-size: 1.5rem;
 }
+
 /* aqui termina */
 .botones {
   display: flex;
@@ -576,21 +605,21 @@ button {
   letter-spacing: 2px;
   background-color: #d9d9d9;
   color: #000;
-  padding: 1rem;
+  padding: 10px;
   border: 2px solid #000;
   box-shadow: inset 0 -4px 0 rgba(0, 0, 0, 0.2);
   cursor: pointer;
   transition: all 0.3s ease-in-out;
   border-radius: 10px;
-  margin-top: 1rem;
+  margin-top: 10px;
   font-family: 'Karma Future', sans-serif;
 }
 
 button:hover {
-   background-color: #fff;
+  background-color: #fff;
   color: #000;
   box-shadow: inset 0 -4px 0 rgba(0, 0, 0, 0.4);
-  transform:translateY(-5px)
+  transform: translateY(-5px)
 }
 
 .botones-estadisticas {
@@ -627,7 +656,7 @@ button:hover {
 }
 
 .tabla th {
-  background-color:#0768c9;
+  background-color: #0768c9;
   color: rgb(0, 0, 0);
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -655,7 +684,7 @@ button:hover {
 }
 
 .tituloJuego {
-  font-size: 2.5rem;
+  font-size: 3.5rem;
   margin-bottom: 1.5rem;
   color: #35495e;
 }
@@ -765,7 +794,7 @@ button:hover {
 .teclado {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(32px, 1fr));
-  gap: 8px;
+  gap: 1px;
   margin-top: 1rem;
   max-width: 400px;
   margin-left: auto;
@@ -842,29 +871,31 @@ button:hover {
   text-align: center;
   padding: 2rem;
 }
+
 .pantalla-final p {
-color: #000000;
-    font-size: 57px;
+  color: #000000;
+  font-size: 57px;
 }
+
 .pantalla-final button {
   margin: 1rem 0.5rem;
 }
 
 .mensaje-derrota {
- font-size: 7rem;
-    color: #721616;
-    font-weight: 300;
-    text-align: center;
-    font-family: 'Karma Future', sans-serif;
-    }
+  font-size: 7rem;
+  color: #721616;
+  font-weight: 300;
+  text-align: center;
+  font-family: 'Karma Future', sans-serif;
+}
 
 .mensaje-victoria {
   font-size: 7rem;
-    color: #246e0d;
-    font-weight: 100;
-    text-align: center;
-    font-family: 'Karma Future', sans-serif;
-    }
+  color: #246e0d;
+  font-weight: 100;
+  text-align: center;
+  font-family: 'Karma Future', sans-serif;
+}
 
 .fade-enter-active,
 .fade-leave-active {
@@ -943,4 +974,106 @@ select:focus {
   flex: 1;
 }
 
+.juego-layout {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  background-color: transparent;
+  backdrop-filter: blur(1px);
+}
+
+.columna-ahorcado {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.columna-juego {
+  flex: 2;
+}
+
+.ahorcado-container {
+  position: relative;
+  width: 200px;
+  height: 300px;
+}
+
+.ahorcado-imagen {
+  position: absolute;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.ahorcado-imagen.visible {
+  opacity: 1;
+      margin-top: 65px;
+}
+
+.parte-0 {
+  top: 50px;
+  left: 0px;
+  width: 280px;
+}
+
+/* Palo */
+.parte-1 {
+  top: 80px;
+  left: 150px;
+  width: 90px;
+}
+
+/* Cabeza */
+.parte-2 {
+  top: 150px;
+  left: 155px;
+  width: 80px;
+}
+
+/* Tronco */
+.parte-3 {
+  top: 150px;
+  left: 125px;
+  width: 35px;
+}
+
+/* brazo izq */
+.parte-4 {
+  top: 150px;
+  left: 230px;
+  width: 35px;
+}
+
+/* brazo der */
+.parte-5 {
+  top: 225px;
+  left: 160px;
+  width: 35px;
+}
+
+/* pierna izq */
+.parte-6 {
+  top: 225px;
+  left: 195px;
+  width: 35px;
+}
+
+/* pierna der */
+
+@media (max-width: 768px) {
+  .juego-layout {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .columna-ahorcado,
+  .columna-juego {
+    flex: none;
+    width: 100%;
+    max-width: 400px;
+  }
+
+  .columna-juego {
+    margin-top: 20px;
+  }
+}
 </style>
