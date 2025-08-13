@@ -76,7 +76,6 @@
           <option disabled value="">Seleccione personaje</option>
           <option value="hombre">Hombre🏴‍☠️</option>
           <option value="mujer">Mujer🤖</option>
-          <option value="homosexual">homosexual🥷</option>
         </select>
       </div>
 
