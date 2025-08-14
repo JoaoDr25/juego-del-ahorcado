@@ -436,22 +436,21 @@ onBeforeUnmount(() => window.removeEventListener('keydown', manejarLetra));
 <style scoped>
 @font-face {
   font-family: 'Karma Future';
-  src: url('./fonts/KarmaFuture.ttf') format('truetype');
+  src: url('~assets/fonts/KarmaFuture.ttf') format('truetype');
 }
 
 @font-face {
   font-family: 'Blocks';
-  src: url('./fonts/From\ Cartoon\ Blocks.ttf');
+  src: url('~assets/fonts/From Cartoon Blocks.ttf') format('truetype');
 }
 
 :global(body) {
-  background-image: url('./public/image.png');
+  background-image: url('/image.png');
   background-size: cover;
   background-position: center;
   margin: 0;
   height: 100vh;
   font-family: 'Blocks', sans-serif;
-
 }
 
 .pantalla {
