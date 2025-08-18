@@ -15,7 +15,6 @@
       
       <div v-if="mostrarReproductor" class="music-player">
         <div class="player-header">
-          <img :src="cancionActual?.image" alt="Imagen de la canción" class="player-image" />
           <div class="song-info">
             <h3>{{ cancionActual?.name }}</h3>
             <p>{{ cancionActual?.artist }}</p>
@@ -192,11 +191,11 @@ import { ref, computed, onMounted, onBeforeUnmount } from 'vue';
 
 const mostrarReproductor = ref(false);
 const canciones = [
-  { name: 'Canción 1', uri: 'spotify:track:4uLU6hMCjMI75M1LxZT6zI', image: 'https://via.placeholder.com/150', artist: 'Artista 1' },
-  { name: 'Canción 2', uri: 'spotify:track:7gOdIUUtFXhzPbAM3oCxdR', image: 'https://via.placeholder.com/150', artist: 'Artista 2' },
-  { name: 'Canción 3', uri: 'spotify:track:1tVAsKr1mtwYO74a9bRbI2', image: 'https://via.placeholder.com/150', artist: 'Artista 3' },
-  { name: 'Canción 4', uri: 'spotify:track:3nKyb1syD8smfPLRQtmWlJ', image: 'https://via.placeholder.com/150', artist: 'Artista 4' },
-  { name: 'Canción 5', uri: 'spotify:track:2JQF2Dgi3U9l1bJLv7B5jj', image: 'https://via.placeholder.com/150', artist: 'Artista 5' }
+  { name: 'Canción 1', uri: 'spotify:track:4uLU6hMCjMI75M1LxZT6zI', image: 'https://via.placeholder.com/150', artist: '' },
+  { name: 'Canción 2', uri: 'spotify:track:7gOdIUUtFXhzPbAM3oCxdR', image: 'https://via.placeholder.com/150', artist: '' },
+  { name: 'Canción 3', uri: 'spotify:track:1tVAsKr1mtwYO74a9bRbI2', image: 'https://via.placeholder.com/150', artist: '' },
+  { name: 'Canción 4', uri: 'spotify:track:3nKyb1syD8smfPLRQtmWlJ', image: 'https://via.placeholder.com/150', artist: '' },
+  { name: 'Canción 5', uri: 'spotify:track:2JQF2Dgi3U9l1bJLv7B5jj', image: 'https://via.placeholder.com/150', artist: '' }
 ];
 
 let currentSongIndex = ref(0);
@@ -509,22 +508,24 @@ onBeforeUnmount(() => window.removeEventListener('keydown', manejarLetra));
 
 .music-player {
   position: fixed;
-  bottom: 100px;
+  bottom: 175px;
   left: 50%;
   transform: translateX(-50%);
   background-color: rgba(255, 255, 255, 0.8);
   padding: 20px;
   border-radius: 15px;
+  border: 1px solid black;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  width: 350px;
+  width: 360px;
   max-height: 300px;
   overflow-y: auto;
 }
 
 .player-header {
   display: flex;
-  align-items: center;
-  margin-bottom: 15px;
+  justify-content: center;
+  height: 40px;
+  margin-bottom: 0;
 }
 
 .player-image {
@@ -535,8 +536,9 @@ onBeforeUnmount(() => window.removeEventListener('keydown', manejarLetra));
 }
 
 .song-info h3 {
-  font-size: 1.2rem;
+  font-size: 1.8rem;
   font-weight: bold;
+  margin: 0;
 }
 
 .progress-bar {
@@ -649,7 +651,7 @@ button:hover {
 .tabla td {
   padding: 12px 16px;
   text-align: center;
-  border: 1px solid #ddd;
+  border: 1px solid black;
   font-family: 'Karma Future', sans-serif;
 }
 
@@ -907,20 +909,28 @@ button:hover {
 
 
 .card-config {
-  background-color: rgb(210 205 205 / 90%);
+  background-color: rgba(255, 255, 255, 0.8);
   padding: 2rem;
+  padding-top: 0px;
+  border: 1px solid black;
   border-radius: 20px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
   width: 100%;
   max-width: 500px;
   text-align: center;
   backdrop-filter: blur(5px);
+  font-size: 1.3rem;
+}
+
+.titulo2 {
+  margin: 20px;
+  font-size: 3rem;
 }
 
 .config-form {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 0.9rem;
 }
 
 .form-group {
@@ -941,7 +951,7 @@ select {
 }
 
 input {
-  width: 29rem;
+  width: 93%;
   padding: 0.8rem 1rem;
   border: 2px solid #000;
   border-radius: 10px;
